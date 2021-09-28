@@ -10,6 +10,7 @@
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
     "@types/react-router-dom": "^5.1.5",
+    "axios": "^0.21.4",
     "date-fns": "^2.16.1",
     "eslint": "^7.12.1",
     "json-server": "^0.16.3",
@@ -25,7 +26,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "api": "jason-server db.json --watch --port 3333"
   },
   "browserslist": {
     "production": [
