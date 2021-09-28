@@ -12,6 +12,7 @@
     "@types/react-router-dom": "^5.1.5",
     "date-fns": "^2.16.1",
     "eslint": "^7.12.1",
+    "json-server": "^0.16.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-icons": "^3.11.0",
