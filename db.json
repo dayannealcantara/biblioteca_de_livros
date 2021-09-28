@@ -1,3 +1,10 @@
 {
-    "books": []
+  "books": [
+    {
+      "title": "tes",
+      "author": "trd",
+      "status": "lendo",
+      "id": 1
+    }
+  ]
 }

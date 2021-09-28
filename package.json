@@ -27,7 +27,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "api": "jason-server db.json --watch --port 3333"
+    "api": "json-server db.json --watch --port 3333"
   },
   "browserslist": {
     "production": [
