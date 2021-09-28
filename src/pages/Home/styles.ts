@@ -13,7 +13,7 @@ export const Left = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  
+
   h1 {
     font-size: 5.6rem;
     color: #fff;
@@ -27,7 +27,7 @@ export const Left = styled.div`
 
   @media (max-width: 999px) {
     height: 350px;
-    
+
     h1 {
       font-size: 2rem;
     }
@@ -51,7 +51,7 @@ export const Right = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  
+
   padding: 56px 16px 0;
 `;
 
@@ -99,18 +99,18 @@ export const InputContainer = styled.div`
   height: 48px;
   border-radius: 4px;
   background-color: var(--color-light-gray);
-  
+
   div {
     padding: 0 8px;
     color: #fff;
     height: 100%;
     border: none;
     font-size: 14px;
-    
+
     display: flex;
     flex-direction: row;
     align-items: center;
-    
+
     svg {
       margin-right: 8px;
     }
@@ -125,7 +125,7 @@ export const Input = styled.input`
   font-weight: 400;
   background-color: transparent;
   padding-left: 16px;
-  
+
   ::placeholder {
     color: var(--color-gray);
   }
@@ -134,13 +134,13 @@ export const Input = styled.input`
 export const BooksList = styled.div`
   margin: 16px 0;
   padding: 16px;
-  
+
   width: 100%;
   max-width: 656px;
   border-radius: 4px;
 
   background-color: var(--color-light-gray);
-  
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -151,13 +151,12 @@ export const BooksListHeader = styled.div`
   justify-content: space-between;
 
   padding: 0 8px;
-  
+
   width: 100%;
   height: 48px;
 `;
 
 export const TitleHeaderContainer = styled.div`
-
   h3 {
     font-size: 16px;
     font-weight: 500;
@@ -184,11 +183,11 @@ export const StatusHeaderContainer = styled.div`
 export const Books = styled.div`
   width: 100%;
   height: 48px;
-  
+
   background-color: #fff;
-  
+
   border-radius: 4px;
-  
+
   padding: 8px;
   margin-bottom: 32px;
 `;
@@ -198,23 +197,25 @@ export const Content = styled.div`
 
   display: flex;
   justify-content: space-between;
-  
+  flex-wrap: wrap;
+
   h2 {
     font-size: 16px;
     font-weight: 500;
     letter-spacing: 2px;
     line-height: 1.5;
+    max-width: 120px;
     max-height: 45px;
-    
+
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     overflow: hidden;
   }
-  
+
   p {
     font-size: 14px;
-    color: #6C6C6C;
+    color: #6c6c6c;
     margin-top: 8px;
   }
 `;
@@ -238,20 +239,20 @@ export const BooksListFooter = styled.div`
 
 export const ButtonsContainer = styled.div`
   width: 100%;
-  
+
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  
+
   button {
     background: none;
     border: none;
     height: 30px;
-    
+
     display: flex;
     align-items: center;
-    
-    color: #55409C;
+
+    color: #55409c;
     font-size: 14px;
   }
 `;
