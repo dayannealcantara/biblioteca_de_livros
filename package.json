@@ -27,7 +27,11 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "api": "json-server db.json --watch --port 3333"
+    "api": "json-server db.json --watch --port 3333",
+    "lint": "eslint src --ext ts,tsx --no-eslintrc --config .eslintrc.json"
+  },
+  "eslintConfig": {
+    "extends": "./.eslintrc.json"
   },
   "browserslist": {
     "production": [
