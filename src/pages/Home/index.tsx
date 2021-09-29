@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+  FormEvent,
+} from 'react';
 
 import {
   FiChevronLeft,
@@ -37,26 +43,38 @@ import {
   TotalText,
 } from './styles';
 
-interface IBook {
+export interface IBook {
   id: number;
   title: string;
   author: string;
   status: string;
 }
 
+type Page = {
+  newPage: -1 | 1;
+};
+
 const Home = () => {
   const [data, setData] = useState<IBook[]>([]);
   const [term, setTerm] = useState('');
+  const [page, setpage] = useState(0);
 
   const history = useHistory();
 
+  async function fetchData(currentPage: number) {
+    const response = await api.get(`/books`, {
+      params: {
+        _sort: 'title',
+        _order: 'desc',
+        _limit: 5,
+        _page: currentPage,
+      },
+    });
+    setData(response.data);
+  }
   useEffect(() => {
-    async function fetchData() {
-      const response = await api.get('/books');
-      setData(response.data);
-    }
-    fetchData();
-  }, []);
+    fetchData(page);
+  }, [page]);
 
   const totalBooks = useMemo(() => data?.length, [data]);
   const deleteBook = useCallback(
@@ -69,12 +87,25 @@ const Home = () => {
     [data],
   );
 
-  const handleSubmit = () => {
-    console.log('Submit');
-  };
+  const handleSubmit = useCallback(
+    async (e: FormEvent) => {
+      e.preventDefault();
+      const response = await api.get(`/books?q=${term}`);
+      setData(response.data);
+    },
+    [term],
+  );
 
-  const handleRedirectToForm = () => {
-    return history.push('/book');
+  const handleRedirectToForm = (book?: IBook) => {
+    return history.push({
+      pathname: '/book',
+      state: {
+        book,
+      },
+    });
+  };
+  const handleUpdatePage = ({ newPage }: Page) => {
+    setpage(currentPage => currentPage + newPage);
   };
 
   return (
@@ -96,16 +127,16 @@ const Home = () => {
           <form onSubmit={handleSubmit} style={{ width: '100%' }}>
             <InputContainer>
               <Input
-                placeholder="What's happening?"
+                placeholder="Seu livro favorito aqui!"
                 onChange={e => setTerm(e.target.value)}
                 value={term}
               />
-              <div>
+              <button type="submit">
                 <FiSearch size={20} color="#BDBDBD" />
-              </div>
+              </button>
             </InputContainer>
           </form>
-          <NewButton onClick={handleRedirectToForm}>
+          <NewButton onClick={() => handleRedirectToForm()}>
             Novo
             <FiPlus size={20} color="#fff" />
           </NewButton>
@@ -133,7 +164,7 @@ const Home = () => {
                 <p>{book.author}</p>
                 <p>{book.status}</p>
                 <ActionButtonsContainer>
-                  <ActionButton>
+                  <ActionButton onClick={() => handleRedirectToForm(book)}>
                     <FiEdit3 size={22} color="#55409C" />
                   </ActionButton>
                   <ActionButton onClick={() => deleteBook(book.id)}>
@@ -145,12 +176,19 @@ const Home = () => {
           ))}
           <BooksListFooter>
             <ButtonsContainer>
-              <button type="button" onClick={() => {}}>
+              <button
+                type="button"
+                onClick={() => handleUpdatePage({ newPage: -1 })}
+              >
                 <FiChevronLeft size={25} color="#55409C" />
               </button>
               <TotalText>
-{totalBooks} livros</TotalText>
-              <button type="button" onClick={() => {}}>
+              {totalBooks} livros
+              </TotalText>
+              <button
+                type="button"
+                onClick={() => handleUpdatePage({ newPage: 1 })}
+              >
                 <FiChevronRight size={25} color="#55409C" />
               </button>
             </ButtonsContainer>

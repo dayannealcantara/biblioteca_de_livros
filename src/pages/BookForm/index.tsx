@@ -1,4 +1,4 @@
-import React, { FormEvent, useState, useCallback } from 'react';
+import React, { FormEvent, useState, useCallback, useEffect } from 'react';
 
 import { FiPlus, FiClipboard, FiUser } from 'react-icons/fi';
 
@@ -22,12 +22,38 @@ import {
   BooksListFooter,
 } from './styles';
 
+import { IBook } from '../Home';
+
+interface IState {
+  book: IBook;
+}
+
 const Home = () => {
+  const [id, setId] = useState<number | null>(null);
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [status, setStatus] = useState('');
 
   const history = useHistory();
+
+  useEffect(() => {
+    const book = (history?.location?.state as IState)?.book;
+    if (book !== null) {
+      setId(book?.id);
+      setTitle(book?.title);
+      setAuthor(book?.author);
+      setStatus(book?.status);
+    }
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      setId(null);
+      setTitle('');
+      setAuthor('');
+      setStatus('');
+    };
+  }, []);
 
   const handleSubmit = useCallback(
     async (e: FormEvent) => {
@@ -38,7 +64,12 @@ const Home = () => {
         author,
         status,
       };
-      await api.post('/books', data);
+
+      if (id) {
+        await api.put(`/books/${id}`, data);
+      } else {
+        await api.post('/books', data);
+      }
 
       history.push('/');
     },
@@ -62,7 +93,7 @@ const Home = () => {
       <Right>
         <FormContainer>
           <FormContainerHeader>
-            <h3>Novo livro</h3>
+            <h3>{id ? title : 'Novo livro'}</h3>
             {/* Name of the book if is editing or "Novo livro" whether is creating */}
           </FormContainerHeader>
           <form onSubmit={handleSubmit}>
@@ -106,7 +137,7 @@ const Home = () => {
             </Content>
             <BooksListFooter>
               <NewButton type="submit">
-                Novo
+                {id ? 'Editar' : 'Novo'}
                 <FiPlus size={20} color="#fff" />
               </NewButton>
             </BooksListFooter>
