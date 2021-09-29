@@ -100,12 +100,13 @@ export const InputContainer = styled.div`
   border-radius: 4px;
   background-color: var(--color-light-gray);
 
-  div {
+  button {
     padding: 0 8px;
     color: #fff;
     height: 100%;
     border: none;
     font-size: 14px;
+    background-color: transparent;
 
     display: flex;
     flex-direction: row;
@@ -204,7 +205,7 @@ export const Content = styled.div`
     font-weight: 500;
     letter-spacing: 2px;
     line-height: 1.5;
-    max-width: 120px;
+    max-width: 150px;
     max-height: 45px;
 
     display: -webkit-box;
